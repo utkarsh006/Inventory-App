@@ -1,4 +1,4 @@
-package com.example.inventory.data
+package com.example.inventory.data.dataClasses
 
 data class Product(
     val categories: List<Category>,

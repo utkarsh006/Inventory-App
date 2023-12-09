@@ -1,4 +1,4 @@
-package com.example.inventory.screens
+package com.example.inventory.presentation.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
