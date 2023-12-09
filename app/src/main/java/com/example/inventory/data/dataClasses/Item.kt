@@ -11,3 +11,5 @@ data class Item(
     val name: String,
     val price: Double
 )
+
+class InvalidItemException(message:String): Exception(message)

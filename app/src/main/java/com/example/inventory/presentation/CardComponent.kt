@@ -38,9 +38,7 @@ fun CardComponent(item: Item) {
                     .padding(end = 8.dp),
                 horizontalArrangement = Arrangement.End
             ) {
-
                 IconComponent(iconResId = R.drawable.ic_heart, tint = Color.Black, onClick = {})
-
             }
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -67,7 +65,6 @@ fun CardComponent(item: Item) {
                 horizontalArrangement = Arrangement.End
             ) {
                 IconComponent(iconResId = R.drawable.ic_add, tint = Color.Green, onClick = {})
-
             }
 
         }
