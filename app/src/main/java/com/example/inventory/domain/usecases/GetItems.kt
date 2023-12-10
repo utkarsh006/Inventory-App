@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 class GetItems(private val repository: ItemRepository) {
 
-    fun invoke(): Flow<List<Item>> {
+     operator fun invoke(): Flow<List<Item>> {
         return repository.getItems()
     }
 }
