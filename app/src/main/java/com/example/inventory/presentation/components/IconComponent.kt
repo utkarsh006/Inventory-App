@@ -1,4 +1,4 @@
-package com.example.inventory.presentation
+package com.example.inventory.presentation.components
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
