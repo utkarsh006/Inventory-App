@@ -34,4 +34,3 @@ class ProductListViewModel @Inject constructor(
         }
     }
 }
-
