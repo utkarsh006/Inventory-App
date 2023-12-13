@@ -3,7 +3,7 @@ package com.example.inventory
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.example.inventory.presentation.ProductListScreen
+import com.example.inventory.presentation.components.MyStoreScreen
 import com.example.inventory.ui.theme.InventoryTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -13,7 +13,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             InventoryTheme {
-                  ProductListScreen()
+                  MyStoreScreen()
             }
         }
     }

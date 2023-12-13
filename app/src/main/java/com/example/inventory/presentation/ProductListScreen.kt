@@ -2,12 +2,10 @@ package com.example.inventory.presentation
 
 import android.util.Log
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -22,17 +20,16 @@ import com.example.inventory.presentation.components.CardComponent
 
 @Composable
 fun ProductListScreen(
+    modifier: Modifier,
     viewModel: ProductListViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
 
     Log.d("List", state.items.toString())
-    Box(modifier = Modifier.fillMaxSize()) {
-        LazyColumn(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = modifier) {
+        LazyRow(modifier = Modifier.fillMaxSize()) {
             items(state.items) { item ->
                 CardComponent(item = item)
-
-                Spacer(modifier = Modifier.height(8.dp))
             }
         }
 

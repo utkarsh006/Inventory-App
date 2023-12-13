@@ -23,7 +23,7 @@ fun <T> TextComponent(value: T) {
             .wrapContentWidth()
             .padding(start = 12.dp),
         style = TextStyle(
-            fontSize = 20.sp,
+            fontSize = 18.sp,
             fontWeight = FontWeight.SemiBold,
             fontStyle = FontStyle.Normal
         ),
