@@ -12,7 +12,7 @@
 - MVVM with Clean Architecture
 - Jetpack Compose to build Cool UI's
 - DaggerHilt
-- Kotlin Serialization (Parse JSON Data Locally)
+- Parsing JSON Data Locally
 - RoomDB
 - Coroutines & Flows
 - ImageLoading through Coil
