@@ -195,8 +195,7 @@ interface JSONParser {
             val topLevelObject = gson.fromJson(json, Product::class.java)
 
             // Extract the list of items from categories
-            val products = topLevelObject.categories
-            return products
+            return topLevelObject.categories
         }
 
     }

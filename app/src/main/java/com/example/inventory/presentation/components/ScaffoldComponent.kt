@@ -7,12 +7,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.inventory.R
+import com.example.inventory.navigation.NavScreen
 import com.example.inventory.presentation.ProductListScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyStoreScreen() {
+fun MyStoreScreen(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -20,11 +23,11 @@ fun MyStoreScreen() {
                 actions = {
                     IconButton(
                         onClick = {
-                            // Handle favorites icon click
+                            navController.navigate(NavScreen.FavoritesScreen.route)
                         },
                         modifier = Modifier
                             .size(32.dp)
-                            .padding(end = 8.dp) // Adjust the padding as needed
+                            .padding(end = 8.dp)
                     ) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_heart),
@@ -34,7 +37,7 @@ fun MyStoreScreen() {
 
                     IconButton(
                         onClick = {
-                            // Handle cart icon click
+                            navController.navigate(NavScreen.CartScreen.route)
                         },
                         modifier = Modifier
                             .size(32.dp)
@@ -49,6 +52,9 @@ fun MyStoreScreen() {
             )
         }
     ) { innerPadding ->
-        ProductListScreen(modifier = Modifier.padding(innerPadding))
+        ProductListScreen(
+            navController = rememberNavController(),
+            modifier = Modifier.padding(innerPadding)
+        )
     }
 }
