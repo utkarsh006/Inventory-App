@@ -19,7 +19,7 @@ interface ItemDao {
 
     //if we call INSERT function with an existing id, it will update the existing entry
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertItem(item: Item)
+    suspend fun insertFavItem(item: Item)
 
     @Delete
     suspend fun deleteItem(item: Item)

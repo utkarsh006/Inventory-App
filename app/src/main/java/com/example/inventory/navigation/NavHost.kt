@@ -21,7 +21,6 @@ fun AppNavHost() {
         ) {
             composable(route = NavScreen.StoreScreen.route) {
                 MyStoreScreen(navController)
-
             }
 
             composable(

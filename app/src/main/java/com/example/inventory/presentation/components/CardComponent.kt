@@ -23,13 +23,19 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.example.inventory.R
 import com.example.inventory.data.dataClasses.Item
+import com.example.inventory.presentation.ProductListViewModel
+import com.example.inventory.presentation.ProductsEvent
 import kotlinx.coroutines.launch
 
 @Composable
-fun CardComponent(item: Item) {
+fun CardComponent(
+    item: Item,
+    viewModel: ProductListViewModel = hiltViewModel()
+) {
     var isAddToCartClicked by remember { mutableStateOf(false) }
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
@@ -56,7 +62,7 @@ fun CardComponent(item: Item) {
                     iconResId = R.drawable.ic_heart,
                     tint = Color.Black,
                     onClick = {
-                        // Handle heart icon click if needed
+                        viewModel.onEvent(ProductsEvent.ToggleFavorite(item))
                     }
                 )
             }
@@ -89,9 +95,7 @@ fun CardComponent(item: Item) {
                     tint = if (isAddToCartClicked) Color.Gray else Color.Green,
                     onClick = {
                         if (!isAddToCartClicked) {
-                            // Add item to cart logic here
                             isAddToCartClicked = true
-
                             scope.launch {
                                 snackbarHostState.showSnackbar("Item added to cart")
                             }

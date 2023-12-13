@@ -16,8 +16,8 @@ class ItemRepositoryImpl(
         return dao.getItemById(id)
     }
 
-    override suspend fun insertItem(item: Item) {
-        dao.insertItem(item)
+    override suspend fun insertFavItem(item: Item) {
+        dao.insertFavItem(item)
     }
 
     override suspend fun deleteItem(item: Item) {

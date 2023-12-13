@@ -17,6 +17,6 @@ class AddItem(private val repository: ItemRepository) {
 
         require(item.price >= 0) { "Item price cannot be negative" }
 
-        repository.insertItem(item)
+        repository.insertFavItem(item)
     }
 }

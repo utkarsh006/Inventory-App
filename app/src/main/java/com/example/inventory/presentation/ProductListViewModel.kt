@@ -33,4 +33,26 @@ class ProductListViewModel @Inject constructor(
             }
         }
     }
+
+    fun onEvent(event: ProductsEvent) {
+        when (event) {
+            is ProductsEvent.ToggleFavorite -> {
+                viewModelScope.launch {
+                    try {
+                        // Call the use case to toggle the item as a favorite
+                        itemUseCases.addItem.invoke(event.item)
+
+                        // Optionally, you may want to fetch the updated list of items
+                        val updatedItems = itemUseCases.getItems.invoke().toList().flatten()
+
+                        // Update the state with the new list of items
+                        _state.value = _state.value.copy(items = updatedItems)
+                    } catch (e: Exception) {
+                        _state.value = e.message?.let { _state.value.copy(error = it) }!!
+                    }
+                }
+            }
+        }
+
+    }
 }
