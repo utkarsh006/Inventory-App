@@ -16,7 +16,7 @@ class ProductListViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _state = mutableStateOf(ProductListState())
-    val state: State<ProductListState> get() = _state // exposing this state to the composables
+    val state: State<ProductListState> get() = _state
 
     init {
         fetchItems()

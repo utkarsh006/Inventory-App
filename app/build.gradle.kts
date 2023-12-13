@@ -86,10 +86,8 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
 
-
     //Coil
     implementation("io.coil-kt:coil-compose:2.4.0")
-    implementation("com.google.code.gson:gson:2.10.1")
 
     //Serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")

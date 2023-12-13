@@ -4,7 +4,6 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.example.inventory.data.dataClasses.Item
 
-
 @Database(
     entities = [Item::class],
     version = 1
