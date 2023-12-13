@@ -11,7 +11,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -20,9 +26,14 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.inventory.R
 import com.example.inventory.data.dataClasses.Item
+import kotlinx.coroutines.launch
 
 @Composable
 fun CardComponent(item: Item) {
+    var isAddToCartClicked by remember { mutableStateOf(false) }
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -41,7 +52,13 @@ fun CardComponent(item: Item) {
                     .padding(end = 8.dp),
                 horizontalArrangement = Arrangement.End
             ) {
-                IconComponent(iconResId = R.drawable.ic_heart, tint = Color.Black, onClick = {})
+                IconComponent(
+                    iconResId = R.drawable.ic_heart,
+                    tint = Color.Black,
+                    onClick = {
+                        // Handle heart icon click if needed
+                    }
+                )
             }
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -67,9 +84,21 @@ fun CardComponent(item: Item) {
             ) {
                 TextComponent(value = item.price)
                 Spacer(modifier = Modifier.weight(1f))
-                IconComponent(iconResId = R.drawable.ic_add, tint = Color.Green, onClick = {})
-            }
+                IconComponent(
+                    iconResId = if (isAddToCartClicked) R.drawable.ic_check else R.drawable.ic_add,
+                    tint = if (isAddToCartClicked) Color.Gray else Color.Green,
+                    onClick = {
+                        if (!isAddToCartClicked) {
+                            // Add item to cart logic here
+                            isAddToCartClicked = true
 
+                            scope.launch {
+                                snackbarHostState.showSnackbar("Item added to cart")
+                            }
+                        }
+                    }
+                )
+            }
         }
     }
 }
