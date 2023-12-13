@@ -1,5 +1,6 @@
 package com.example.inventory.utils
 
+import com.example.inventory.data.dataClasses.Category
 import com.example.inventory.data.dataClasses.Item
 import com.example.inventory.data.dataClasses.Product
 import com.google.gson.Gson
@@ -184,11 +185,19 @@ interface JSONParser {
             val topLevelObject = gson.fromJson(json, Product::class.java)
 
             // Extract the list of items from categories
-            val allItems = topLevelObject.categories.flatMap { it.items }
-
-            return allItems
+            return topLevelObject.categories.flatMap { it.items }
         }
 
+        fun getProducts(): List<Category> {
+            val gson = Gson()
+
+            // Parse the top-level object
+            val topLevelObject = gson.fromJson(json, Product::class.java)
+
+            // Extract the list of items from categories
+            val products = topLevelObject.categories
+            return products
+        }
 
     }
 
