@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.runtime.Composable
@@ -47,7 +48,8 @@ fun CardComponent(item: Item) {
                 model = item.icon,
                 contentDescription = "",
                 modifier = Modifier
-                    .height(150.dp)
+                    .wrapContentWidth()
+                    .height(80.dp)
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -56,14 +58,13 @@ fun CardComponent(item: Item) {
 
             Spacer(modifier = Modifier.height(5.dp))
 
-            TextComponent(value = item.price)
-
             Row(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(end = 8.dp),
-                horizontalArrangement = Arrangement.End
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Start
             ) {
+                TextComponent(value = item.price)
+                Spacer(modifier = Modifier.weight(1f))
                 IconComponent(iconResId = R.drawable.ic_add, tint = Color.Green, onClick = {})
             }
 
