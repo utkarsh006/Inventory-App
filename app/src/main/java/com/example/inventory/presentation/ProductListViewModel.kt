@@ -35,41 +35,32 @@ class ProductListViewModel @Inject constructor(
     }
 
     fun isFavorite(itemId: Int): Boolean {
-        return state.value.isFavorite && state.value.items.any { it.id == itemId }
+        return state.value.favItemsList.any { it.id == itemId }
     }
 
     fun onEvent(event: ProductsEvent) {
-        when (event) {
-            is ProductsEvent.AddFavorite -> {
-                viewModelScope.launch {
-                    try {
-                        // Call the use case to toggle the item as a favorite
+        viewModelScope.launch {
+            try {
+                when (event) {
+                    is ProductsEvent.AddFavorite -> {
                         itemUseCases.addItem.invoke(event.item)
-
-                        // fetch the updated list of items
-                        val updatedItems = itemUseCases.getItems.invoke().toList().flatten()
-
-                        // Update the state with the new list of items
-                        _state.value = state.value.copy(items = updatedItems)
-                    } catch (e: Exception) {
-                        _state.value = e.message?.let { state.value.copy(error = it) }!!
                     }
-                }
-            }
 
-            is ProductsEvent.DeleteFavorite -> {
-                viewModelScope.launch {
-                    try {
+                    is ProductsEvent.DeleteFavorite -> {
                         itemUseCases.deleteItem.invoke(event.item)
-                        val updatedItems = itemUseCases.getItems.invoke().toList().flatten()
-                        _state.value = state.value.copy(items = updatedItems)
-                    } catch (e: Exception) {
-                        _state.value = e.message?.let { state.value.copy(error = it) }!!
                     }
                 }
+
+                // Fetch the updated list of items after the add or delete operation
+                val updatedItems = itemUseCases.getItems.invoke().toList().flatten()
+
+                // Update the state with the new list of items
+                _state.value = state.value.copy(favItemsList = updatedItems)
+
+            } catch (e: Exception) {
+                _state.value = e.message?.let { state.value.copy(error = it) }!!
             }
         }
-
     }
 
 }

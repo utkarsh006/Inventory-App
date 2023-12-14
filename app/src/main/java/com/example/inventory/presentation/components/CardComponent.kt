@@ -63,19 +63,20 @@ fun CardComponent(
                     iconResId = R.drawable.ic_heart,
                     tint = Color.Black,
                     onClick = {
-                        if (isFavorite) {
-                            viewModel.onEvent(ProductsEvent.DeleteFavorite(item))
-                            scope.launch {
-                                snackbarHostState.showSnackbar("Item removed from favorites")
-                            }
-                        } else {
-                            viewModel.onEvent(ProductsEvent.AddFavorite(item))
-                            scope.launch {
-                                snackbarHostState.showSnackbar("Item added to favorites")
-                            }
+                        viewModel.onEvent(
+                            if (isFavorite) ProductsEvent.DeleteFavorite(item)
+                            else ProductsEvent.AddFavorite(item)
+                        )
+
+                        scope.launch {
+                            snackbarHostState.showSnackbar(
+                                if (isFavorite) "Item removed from favorites"
+                                else "Item added to favorites"
+                            )
                         }
                     }
                 )
+
             }
 
             Spacer(modifier = Modifier.height(8.dp))
