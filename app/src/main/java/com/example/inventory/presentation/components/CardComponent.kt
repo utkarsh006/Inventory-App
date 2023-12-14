@@ -37,6 +37,7 @@ fun CardComponent(
     viewModel: ProductListViewModel = hiltViewModel()
 ) {
     var isAddToCartClicked by remember { mutableStateOf(false) }
+    val isFavorite = viewModel.isFavorite(item.id)
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
@@ -62,7 +63,17 @@ fun CardComponent(
                     iconResId = R.drawable.ic_heart,
                     tint = Color.Black,
                     onClick = {
-                        viewModel.onEvent(ProductsEvent.ToggleFavorite(item))
+                        if (isFavorite) {
+                            viewModel.onEvent(ProductsEvent.DeleteFavorite(item))
+                            scope.launch {
+                                snackbarHostState.showSnackbar("Item removed from favorites")
+                            }
+                        } else {
+                            viewModel.onEvent(ProductsEvent.AddFavorite(item))
+                            scope.launch {
+                                snackbarHostState.showSnackbar("Item added to favorites")
+                            }
+                        }
                     }
                 )
             }

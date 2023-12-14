@@ -27,32 +27,49 @@ class ProductListViewModel @Inject constructor(
             try {
                 val items = itemUseCases.getItems.invoke().toList().flatten()
                 // Update the state with the new list of items
-                _state.value = _state.value.copy(items = items)
+                _state.value = state.value.copy(items = items)
             } catch (e: Exception) {
-                _state.value = e.message?.let { _state.value.copy(error = it) }!!
+                _state.value = e.message?.let { state.value.copy(error = it) }!!
             }
         }
     }
 
+    fun isFavorite(itemId: Int): Boolean {
+        return state.value.isFavorite && state.value.items.any { it.id == itemId }
+    }
+
     fun onEvent(event: ProductsEvent) {
         when (event) {
-            is ProductsEvent.ToggleFavorite -> {
+            is ProductsEvent.AddFavorite -> {
                 viewModelScope.launch {
                     try {
                         // Call the use case to toggle the item as a favorite
                         itemUseCases.addItem.invoke(event.item)
 
-                        // Optionally, you may want to fetch the updated list of items
+                        // fetch the updated list of items
                         val updatedItems = itemUseCases.getItems.invoke().toList().flatten()
 
                         // Update the state with the new list of items
-                        _state.value = _state.value.copy(items = updatedItems)
+                        _state.value = state.value.copy(items = updatedItems)
                     } catch (e: Exception) {
-                        _state.value = e.message?.let { _state.value.copy(error = it) }!!
+                        _state.value = e.message?.let { state.value.copy(error = it) }!!
+                    }
+                }
+            }
+
+            is ProductsEvent.DeleteFavorite -> {
+                viewModelScope.launch {
+                    try {
+                        itemUseCases.deleteItem.invoke(event.item)
+                        val updatedItems = itemUseCases.getItems.invoke().toList().flatten()
+                        _state.value = state.value.copy(items = updatedItems)
+                    } catch (e: Exception) {
+                        _state.value = e.message?.let { state.value.copy(error = it) }!!
                     }
                 }
             }
         }
 
     }
+
 }
