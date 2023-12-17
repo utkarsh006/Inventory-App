@@ -93,11 +93,9 @@ dependencies {
     //Coil
     implementation("io.coil-kt:coil-compose:2.4.0")
 
-    //Serialization
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
     implementation("com.google.code.gson:gson:2.10.1")
 
-    implementation("androidx.navigation:navigation-compose:2.7.5")
+    implementation("androidx.navigation:navigation-compose:2.7.6")
 }
 
 kapt {
