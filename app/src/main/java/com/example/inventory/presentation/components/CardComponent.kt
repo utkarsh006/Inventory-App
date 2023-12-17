@@ -60,8 +60,8 @@ fun CardComponent(
                 horizontalArrangement = Arrangement.End
             ) {
                 IconComponent(
-                    iconResId = R.drawable.ic_heart,
-                    tint = Color.Black,
+                    iconResId = if(isFavorite) R.drawable.ic_like else R.drawable.ic_dislike  ,
+                    tint = if(isFavorite) Color.Red else Color.Black,
                     onClick = {
                         isFavorite = !isFavorite
                         viewModel.onEvent(
